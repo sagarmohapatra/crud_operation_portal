@@ -1,0 +1,113 @@
+<div class="container-fluid mt-4">
+  <div class="card">
+    <h2 class="text-center mt-2">Manage Products</h2>
+    <hr />
+
+    <div class="row justify-content-center">
+      <div class="col-md-5 text-center">
+        <h2>Add Product</h2>
+
+        <form>
+          <div class="form-group">
+            <input
+              placeholder="Product id"
+              type="text"
+              class="form-control"
+              id="id"
+              #id
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Product Name"
+              id="name"
+              #name
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Product Price"
+              id="name"
+              #price
+            />
+          </div>
+          <div class="mb-3">
+            <button
+              type="button"
+              class="btn btn-primary mx-2"
+              (click)="onAddProduct(id, name, price)"
+            >
+              {{ editMode ? "Update Product" : "Add Product" }}
+              
+            </button>
+            <button
+              type="button"
+              class="btn btn-success mx-2"
+              (click)="onSubmit()"
+            >
+              Save Product
+            </button>
+            <button
+              type="button"
+              class="btn btn-warning"
+              (click)="onFetchData()"
+            >
+              Fetch Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h3 class="p-3">{{ dataTitle | async }}</h3>
+    <div class="mt-2">
+      <table class="table table-striped">
+        <thead class="table table-danger">
+          <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Delete</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="!fetching">
+          <tr *ngFor="let data of products; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ data.id }}</td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.price }}</td>
+            <td>
+              <button
+                class="btn btn-outline-danger"
+                (click)="onDeleteProduct(i)"
+              >
+                Delete
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-outline-danger" (click)="onEditProduct(i)">
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center" *ngIf="fetching">
+        <div class="spinner-border text-info" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        Fetching Product
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-user-detail></app-user-detail>
